@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    background-color: #FBFBFB;
+    font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+hr {
+    margin: 0px;
+    margin-top: 5px;
+}
+
+.card-img {
+    width: 100%;
+    height: 30vh;
+    object-fit: contain;
+}
+
+.card-shadow {
+    box-shadow: 4px 2px 2px grey;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.span-bold {
+    font-weight: bold;
+}
+
+.product-img-container {
+    width: 100%;
+    min-height: 120px;
+    max-height: auto;
+    object-fit: contain;
+}
+
+
+.lead {
+    font-weight: 400;
+}
+
+.cart-card-head {
+    background-color: #3C3C3C;
+    color: white;
+}

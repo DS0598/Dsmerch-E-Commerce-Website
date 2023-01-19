@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row my-5">
+        {% for prod in object_list %}
+        <div class="col-md-3 my-3">
+            <div class="card" style="width: 18rem;">
+                <a href="{% url 'product_detail' prod.pk %}" alt="">
+                    <img src={{ prod.image.url }} class="rounded card-img" alt="a picture of {{ prod.name }}">
+                </a>
+                <hr>
+                <div class="card-body">
+                    <h5 class="card-text text-center px-2">{{ prod.name }}</h5>
+                    <div class="price">
+                        <p>Price:</p>
+                        <p><span class="span-bold"> ₹ {{ prod.price }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

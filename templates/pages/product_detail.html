@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row my-4 align-items-start">
+        <div class="col-md-6">
+            <div class="product-img-container">
+                <img src="{{ object.image.url }}" class="img-fluid" alt="a picture {{ object.name }}">
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h3>{{ object.name }}</h3>
+                </li>
+                <li class="list-group-item">Reviews: {{ object.num_reviews }}</li>
+                {% comment %} <li class="list-group-item">Price: ₹{{ object.price }}</li> {% endcomment %}
+                <li class="list-group-item">{{ object.description }}</li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Price: ₹{{ object.price }}</li>
+                <li class="list-group-item">Count in stock: {{ object.count_in_stock }}</li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">Quantity:</div>
+                        <div class="col">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>--select--</option>
+                                {% for stock in countInStock %}
+                                <option value="{{stock}}">{{stock}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item d-grid gap-2">
+                    {% if object.count_in_stock >= 1 %}
+                    {% include 'cart/update_cart.html' with product=object cart=cart %}
+                    {% else %}
+                    <button class="btn btn-secondary" disabled>Out of stock</button>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <h4>REVIEWS:</h4>
+            <ul class="list-group list-group-flush">
+                {% for review in reviews %}
+                <li class="list-group-item">
+                    <strong>{{ review.user }}</strong><span class="px-3"> {{ review.created_on }}</span>
+                    <p>{{ review.comments }}</p>
+                </li>
+                {% endfor %}
+                {% if user.is_authenticated and not user.is_staff %}
+                <li class="list-group-item">
+                    <h4>Write a review</h4>
+                    {% include 'reviews/comment.html' with form=review_form product_id=object.pk next_url=request.build_absolute_uri %}
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,9 @@
+<form action="{% url 'create_review' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{ product_id }}">
+    <input type="hidden" name="next" value="{{ next_url }}">
+    {{ form.as_p }}
+    <div class="text-end">
+        <button type="submit" class="btn btn-sm btn-success">Add Review</button>
+    </div>
+</form>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="m-2">
+    <h1 class="text-center">Cart</h1>
+</div>
+<div>
+    <div class="row m-4">
+        <div class="col-12 col-md-8">
+            <div class="card">
+                {% if cart.products.exists %}
+                <table class="table cart-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">PRODUCT NAME</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">SUBTOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody class="cart-body">
+                        {% for product in cart.products.all %}
+                        <tr class="align-middle cart-product">
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{% include 'cart/snippets/remove_product.html' with product_id=product.pk %}
+                            </td>
+                            <td><a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt=""
+                                        class="img-fluid" width="75" height="75"></a></td>
+                            <td>
+                                <h5><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+                            </td>
+                            <td>₹{{ product.price }}</td>
+                            <td>₹{{ product.price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="cart-product-remove-form" style="display:none">
+                    {% include 'cart/snippets/remove_product.html' %}
+                </div>
+                {% else %}
+                <div>
+                    <p class="lead p-2">Your cart is empty</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="card cart-side-bar">
+                <div class="card-header cart-card-head">
+                    <h3>CART TOTAL</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Subtotal: <span class="cart-subtotal">₹</span></li>
+                        <li class="list-group-item">Shipping Chargs: ₹50</li>
+                        <li class="list-group-item">Total: <span class="cart-total">₹{{ cart.total }}</span></li>
+                        <li class="list-group-item"><a href="{% url 'checkout' %}" class="btn btn-success">PROCEED TO
+                                CHECKOUT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

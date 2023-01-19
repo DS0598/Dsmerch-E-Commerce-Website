@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center my-5">
+        <div class="col-sm-6 col-md-8">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="card border-dark">
+                <div class="card-body">
+                    <h2 class="text-center">Edit Your Address</h2>
+                    <form method='POST'>
+                        {% csrf_token %}
+                        {{ form }}
+                        <br>
+                        <div class="text-center">
+                            <button class="btn btn-outline-success" type="submit">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+
+{% endblock content %}

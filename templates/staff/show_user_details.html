@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row m-2">
+    <h2>{{ user_detail.username }} details</h2>
+    <div class="row mt-2">
+        <div class="col">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Email: {{ user_detail.email }}</li>
+                <li class="list-group-item">First Name: {{ user_detail.first_name }}</li>
+                <li class="list-group-item">Last Name: {{ user_detail.last_name }}</li>
+              </ul>
+        </div>
+        <div class="col">
+            Addresses:
+            {% if default_address %}
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row text-success px-2">
+                                Default Address
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ default_address.name }}</h5>
+                            <p class="card-text">{{ default_address.contact_number }}</p>
+                            <p class="card-text">{{ default_address.address_line_1}}; {{ default_address.address_line_2}}</p>
+                            <p class="card-text">{{ default_address.city}}, {{ default_address.state}},
+                                {{ default_address.pincode}},
+                                {{ default_address.country.name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            No addresses detected
+            {% endif %}
+            {% if addresses %}
+            {% for address in addresses %}
+            <div class="row mt-2">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row text-secondary px-2">
+                                Address {{ forloop.counter }}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ address.name }}</h5>
+                            <p class="card-text">{{ address.contact_number }}</p>
+                            <p class="card-text">{{ address.address_line_1 }}; {{ address.address_line_2 }}</p>
+                            <p class="card-text">{{ address.city }}, {{ address.state }}, {{ address.pincode }},
+                                {{ address.country.name }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

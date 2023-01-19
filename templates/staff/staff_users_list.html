@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} mt-2">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="row mt-4 align-items-center">
+        <div class="col">
+            <h4>Total users: {{ object_list.count }}</h4>
+        </div>
+    </div>
+    <table class="table table-hover table-dark table-striped mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in object_list %}
+            <tr>
+                <td>{{ obj.username }}</td>
+                <td>{{ obj.email }}</td>
+                <td>                    
+                    <a class="btn btn-sm btn-success mx-2" href="{% url 'show_user_details' obj.pk %}"><i class="fa fa-info-circle"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
